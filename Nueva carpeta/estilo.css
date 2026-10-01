@@ -15,3 +15,8 @@ body {
 .carousel-item {
     min-height: 250px;
 }
+
+img {
+    max-width: 35%;
+    height: auto;
+  }
