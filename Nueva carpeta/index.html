@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Datos - Benjamin Segade</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Pagina web SQL - Benjamin Segade</a>
+            <span class="navbar-text">2026 - ET32DE14</span>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        
+        <div class="p-3 mb-4 bg-white rounded border">
+            <h1 class="h3">Temario - Base de Datos</h1>
+            <p class="text-muted mb-0">Resumen de los temas de la asignatura Base de Datos.</p>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="Pestanas" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="der-tab" data-bs-toggle="tab" data-bs-target="#der-pane" type="button" role="tab">1. DER y Normalización</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="mysql-tab" data-bs-toggle="tab" data-bs-target="#mysql-pane" type="button" role="tab">2. Comandos MySQL</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="PestanasContent">
+
+            <div class="tab-pane fade show active" id="der-pane" role="tabpanel" tabindex="0">
+                <div class="card mb-3">
+                    <div class="card-header font-weight-bold">
+                        1. DER (Diagramas Entidad-Relación) y Formas Normales
+                    </div>
+                    <div class="card-body">
+                        <p>El DER es una herramienta gráfica que permite representar la información de un sistema y cómo se relaciona entre sí.</p>
+                        <p><strong>Formas Normales (Normalización):</strong></p>
+                        <p>* 1FN Eliminar valores repetidos y definir clave primaria.</p>
+                        <p>* 2FN Que todos los atributos dependan totalmente de la clave primaria.</p>
+                        <p>* 3FN Eliminar dependencias transitivas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="mysql-pane" role="tabpanel" tabindex="0">
+                
+                <div id="carruselMySQL" class="carousel slide" data-bs-ride="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card">
+                                <div class="card-header font-weight-bold">
+                                   Insertar Registros:
+                                </div>
+                                <div class="card-body">
+                                    <p> <strong>INSERT INTO</strong>, utilizado para agregar nuevos datos en una tabla existente.</p>
+                                    <div class="bg-dark text-white p-3 rounded font-monospace fs-7">
+                                        INSERT INTO alumnos (id, nombre, apellido, edad)<br>
+                                        VALUES (1, 'Juan', 'Pérez', 17);
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-header font-weight-bold">
+                                    Consultas Básicas:
+                                </div>
+                                <div class="card-body">
+                                    <p><strong> SELECT</strong>, <strong> FROM </strong> y <strong> WHERE</strong> para consultar y filtrar información especifica dentro de las tablas.</p>
+                                    <div class="bg-dark text-white p-3 rounded font-monospace fs-7">
+                                        SELECT nombre, apellido <br>
+                                        FROM alumnos <br>
+                                        WHERE edad >= 18;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-header font-weight-bold">
+                                   Ordenamiento y Agrupación:
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>ORDER BY:</strong> Ordena el resultado de forma ascendente (ASC) o descendente (DESC).</p>
+                                    <p><strong>GROUP BY:</strong> Agrupa filas que tienen los mismos valores en filas de resumen (ej. usar con COUNT, AVG, SUM).</p>
+                                    <div class="bg-dark text-white p-3 rounded font-monospace fs-7">
+                                        SELECT curso, COUNT(*) AS total_alumnos<br>
+                                        FROM alumnos<br>
+                                        GROUP BY curso<br>
+                                        ORDER BY total_alumnos DESC;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-header font-weight-bold">
+                                    Relaciones y Filtros Agrupados:
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>INNER JOIN:</strong> Combina filas de dos o más tablas en base a una columna relacionada.</p>
+                                    <p><strong>HAVING:</strong> Condición que filtra los resultados pero solo después de un GROUP BY (como reemplazo de WHERE ya que WHERE no se puede usar con funciones de agregación).</p>
+                                    <div class="bg-dark text-white p-3 rounded font-monospace fs-7">
+                                        SELECT cursos.nombre, COUNT(alumnos.id) AS cantidad<br>
+                                        FROM alumnos<br>
+                                        INNER JOIN cursos ON alumnos.id_curso = cursos.id<br>
+                                        GROUP BY cursos.nombre<br>
+                                        HAVING cantidad > 10;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <div class="card-header font-weight-bold">
+                                   Procedimientos Almacenados:
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>STORE PROCEDURE</strong> un objeto de base de datos que contiene lógica SQL pre-compilada.</p>
+                                      <p>se puede reutilizar ejecutando un comando de llamada (CALL).</p>
+                                    <div class="bg-dark text-white p-3 rounded font-monospace fs-7">
+                                        DELIMITER //<br>
+                                        CREATE PROCEDURE nombre_procedimiento(IN parametro TIPO)<br>
+                                        BEGIN<br>
+                                        -- Cuerpo del procedimiento (SQL)<br>
+                                        SELECT * FROM tabla;<br>
+                                        END //<br>
+                                        DELIMITER ;<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <button class="btn btn-secondary btn-sm" type="button" data-bs-target="#carruselMySQL" data-bs-slide="prev">
+                            &laquo; Anterior
+                        </button>
+                        <button class="btn btn-secondary btn-sm" type="button" data-bs-target="#carruselMySQL" data-bs-slide="next">
+                            Siguiente &raquo;
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <footer class="text-center text-muted py-3 border-top mt-4">
+            <small>TP - Base de Datos | Benjamin Segade</small>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
